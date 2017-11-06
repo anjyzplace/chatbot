@@ -1,25 +1,20 @@
 # use natural language toolkit
 import nltk
+import csv
+import random
 from nltk.stem.lancaster import LancasterStemmer
+from classfier import sentimentalize
 # word stemmer
 stemmer = LancasterStemmer()
 
 # 3 classes of training data
 training_data = []
-training_data.append({"class":"greeting", "sentence":"how are you?"})
-training_data.append({"class":"greeting", "sentence":"how is your day?"})
-training_data.append({"class":"greeting", "sentence":"good day"})
-training_data.append({"class":"greeting", "sentence":"how is it going today?"})
 
-training_data.append({"class":"goodbye", "sentence":"have a nice day"})
-training_data.append({"class":"goodbye", "sentence":"see you later"})
-training_data.append({"class":"goodbye", "sentence":"have a nice day"})
-training_data.append({"class":"goodbye", "sentence":"talk to you soon"})
+with open('healthdata.csv', 'rt') as csvfile:
+    x = csv.DictReader(csvfile,delimiter=',',quotechar='|')
 
-training_data.append({"class":"sandwich", "sentence":"make me a sandwich"})
-training_data.append({"class":"sandwich", "sentence":"can you make a sandwich?"})
-training_data.append({"class":"sandwich", "sentence":"having a sandwich today?"})
-training_data.append({"class":"sandwich", "sentence":"what's for lunch?"})
+    for row in x:
+        training_data.append({"class": row['CLASS'], "sentence":row['SENTENCE'], "response":row['RESPONSE']})
 print ("%s sentences of training data" % len(training_data))
 
 # capture unique stemmed words in the training corpus
@@ -118,7 +113,28 @@ def sendResponse(sentence):
         if score > high_score:
             high_class = c
             high_score = score
+            
+    return selectResponse(high_class, sentence)
 
-    return high_class
+def selectResponse(dclass, sentence):
+    GREETING_RESPONSES = ["'Hello", "Hey", "*nods*", "Hi", "Good day to you", "Hi there"]
+    GOODBYE_RESPONSES =  ["See you later", "Bye",  "Talk to you later", "Bye for now", "Take care"]
+    IDENTITY_RESPONSES = ["I am LifeBot. How can I help you", " I am LifeBot, I can give healthy recommendations."]
+    FOOD_RESPONSES = ["beans", "soup", "rice"]
+    responses = list(set([a['response'] for a in training_data]))
+    # print(dclass)
+    if(dclass=='greeting'):
+     return random.choice(GREETING_RESPONSES)
+    elif(dclass=='goodbye'):
+     return random.choice(GOODBYE_RESPONSES)
+    elif(dclass=='identity'):
+     return random.choice(IDENTITY_RESPONSES) 
+    elif(dclass=='food'):
+     return ' You can try some ' + random.choice(FOOD_RESPONSES)    
+    else:
+     print('--------------------------')
+    #  print(sentence)
+    #  return (sentimentalize(sentence))
+     return ('Sorry, I dont understand that')
 # print("End of training..............")
 # print(classify("make me some lunch?"))
