@@ -102,6 +102,21 @@ def classify(sentence):
 
     return high_class, high_score
 
+    # return the class  for sentence
+def sentenceClass(sentence):
+    high_class = None
+    high_score = 0
+    # loop through our classes
+    for c in class_words.keys():
+        # calculate score of sentence for each class
+        score = calculate_class_score_commonality(sentence, c, show_details=False)
+        # keep track of highest score
+        if score > high_score:
+            high_class = c
+            high_score = score
+
+    return high_class
+
 def sendResponse(sentence):
     high_class = None
     high_score = 0
