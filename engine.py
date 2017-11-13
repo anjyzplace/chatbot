@@ -1,7 +1,7 @@
 # use natural language toolkit
 import nltk
 import csv
-import random
+import random as rd
 from nltk.stem.lancaster import LancasterStemmer
 from classfier import sentimentalize
 # word stemmer
@@ -139,13 +139,13 @@ def selectResponse(dclass, sentence):
     responses = list(set([a['response'] for a in training_data]))
     # print(dclass)
     if(dclass=='greeting'):
-     return random.choice(GREETING_RESPONSES)
+     return rd.choice(GREETING_RESPONSES)
     elif(dclass=='goodbye'):
-     return random.choice(GOODBYE_RESPONSES)
+     return rd.choice(GOODBYE_RESPONSES)
     elif(dclass=='identity'):
-     return random.choice(IDENTITY_RESPONSES) 
+     return rd.choice(IDENTITY_RESPONSES) 
     elif(dclass=='food'):
-     return ' You can try some ' + random.choice(FOOD_RESPONSES)    
+     return ' You can try some ' + rd.choice(FOOD_RESPONSES)    
     else:
      print('--------------------------')
     #  print(sentence)

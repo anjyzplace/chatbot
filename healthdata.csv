@@ -22,7 +22,22 @@ food,What can I have for lunch ?
 food,What can I have for dinner ?
 drink,What can I drink ?
 drink,What drink can I have ?
-exercise,What exercise can you recommend
+exercise,situps
+exercise,walking
+exercise,jogging
+exercise,running
+exercise,tennis
+exercise,basketball
+exercise,netball
+exercise,swimming
+exercise,biking
+exercise,plank
+exercise,squat
+exercise,boxing
+exercise,rowing
+exercise,Aquarobics
+exercise,dancing
+exercise,What exercise can I do
 negative,Can I have sweets ?,Do not have too much sweets
 negative,Can I have sweets ?,Sweets isn't good for you
 negative,Can I have cakes ?,You don�t want too much cake

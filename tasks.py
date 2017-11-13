@@ -1,8 +1,13 @@
 from microsoftbotframework import ReplyToActivity
 from engine import sendResponse
 from engine import sentenceClass
+from recommender import foodRecomendation, exerciseRecommendation
+from recommender import isItInFile
+# from pymongo import MongoClient
 import json
-jsonData ='{"actions":[{"type":"imBack","title":"Blue","value":"Blue"},{"type":"imBack","title":"Red","value":"Red"},{"type":"imBack","title":"Green","value":"Green"}]}'
+# jsonData ='{"actions":[{"type":"imBack","title":"Blue","value":"Blue"},{"type":"imBack","title":"Red","value":"Red"},{"type":"imBack","title":"Green","value":"Green"}]}'
+jsonFoodData = foodRecomendation()
+jsonExerciseData = exerciseRecommendation()
 # jsonToPython = json.loads(jsonData)
 jsonToPython = None
 greeting = 'I dey o'
@@ -14,11 +19,24 @@ def echo_response(message):
 def botresponse(message):
     botreply = sendResponse(message["text"])
     sententenceclass = sentenceClass(message["text"])
-    # print(botreply)
-    if message["type"] == "message":
+    input = message["text"]
+    print('The input is {0}'.format(input))
+    if isItInFile(message["text"])== True:
+        ReplyToActivity(fill=message,
+            text='Thanks, I will make a note of that.').send()
+
+    # print(selectRecomendation())
+    elif message["type"] == "message":
         if sententenceclass == "food":
-            print(botreply)
-            jsonToPython = json.loads(jsonData)
+            # print(botreply)
+            print(jsonFoodData)
+            jsonToPython = json.loads(jsonFoodData)
+            ReplyToActivity(fill=message,
+                        text="Which of the following would you consider ?", inputHint="acceptingInput", suggestedActions=jsonToPython).send()
+        elif sententenceclass == "exercise":
+            # print(botreply)
+            print(jsonExerciseData)
+            jsonToPython = json.loads(jsonExerciseData)
             ReplyToActivity(fill=message,
                         text="Which of the following would you consider ?", inputHint="acceptingInput", suggestedActions=jsonToPython).send()
         else:
