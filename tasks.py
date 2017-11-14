@@ -1,10 +1,15 @@
-from microsoftbotframework import ReplyToActivity
+from microsoftbotframework import ReplyToActivity, MongodbState
 from engine import sendResponse
 from engine import sentenceClass
 from recommender import foodRecomendation, exerciseRecommendation
 from recommender import isItInFile
+import chathistory
+
+
 # from pymongo import MongoClient
 import json
+
+
 # jsonData ='{"actions":[{"type":"imBack","title":"Blue","value":"Blue"},{"type":"imBack","title":"Red","value":"Red"},{"type":"imBack","title":"Green","value":"Green"}]}'
 jsonFoodData = foodRecomendation()
 jsonExerciseData = exerciseRecommendation()
@@ -17,6 +22,9 @@ def echo_response(message):
                         text=message["text"]).send()
 
 def botresponse(message):
+    valu = chathistory.DataStore()
+    print(valu.get_history())
+    # print('The user id is {0}'.format(mongodb_state.get_user_data(user_id)))
     botreply = sendResponse(message["text"])
     sententenceclass = sentenceClass(message["text"])
     input = message["text"]
