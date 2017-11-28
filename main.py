@@ -1,9 +1,9 @@
 from microsoftbotframework import MsBot
 from tasks import *
 
-# bot = MsBot()
+bot = MsBot()
 print('Starting Application')
-bot = MsBot(cache=False,state='MongodbState')
+# bot = MsBot(cache=False,state='MongodbState')
 print('Finished setting MongoDB')
 bot.add_process(botresponse)
 
