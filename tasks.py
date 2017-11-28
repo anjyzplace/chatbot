@@ -22,8 +22,8 @@ def echo_response(message):
                         text=message["text"]).send()
 
 def botresponse(message):
-    # valu = chathistory.DataStore()
-    # print(valu.get_history())
+    valu = chathistory.DataStore()
+    print(valu.get_history())
     # print('The user id is {0}'.format(mongodb_state.get_user_data(user_id)))
     botreply = sendResponse(message["text"])
     sententenceclass = sentenceClass(message["text"])
