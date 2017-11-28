@@ -1,3 +1,4 @@
 microsoftbotframework
 gunicorn
 nltk
+textblob
