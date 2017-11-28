@@ -3,7 +3,7 @@ from tasks import *
 
 # bot = MsBot()
 print('Starting Application')
-bot = MsBot(state='MongodbState')
+bot = MsBot(cache=False,state='MongodbState')
 print('Finished setting MongoDB')
 bot.add_process(botresponse)
 

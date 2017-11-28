@@ -3,3 +3,5 @@ gunicorn
 nltk
 textblob
 pymongo
+cryptography
+PyJWT
