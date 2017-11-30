@@ -22,11 +22,15 @@ def echo_response(message):
                         text=message["text"]).send()
 
 def botresponse(message):
+    print("============================================================================================")
     valu = chathistory.DataStore()
-    print(valu.get_history())
+    print(message)
+    # print(valu.get_history())
     # print('The user id is {0}'.format(mongodb_state.get_user_data(user_id)))
     botreply = sendResponse(message["text"])
+    print("One")
     sententenceclass = sentenceClass(message["text"])
+    print("Two")
     input = message["text"]
     print('The input is {0}'.format(input))
     if isItInFile(message["text"])== True:

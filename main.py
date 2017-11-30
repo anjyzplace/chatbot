@@ -1,3 +1,4 @@
+# coding=utf-8
 from microsoftbotframework import MsBot
 from tasks import *
 

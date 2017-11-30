@@ -1,0 +1,4 @@
+microsoftbotframework
+csvmapper
+textblob
+pymongo
