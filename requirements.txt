@@ -1,6 +1,6 @@
+nltk
 microsoftbotframework
 gunicorn
-nltk
 textblob
 pymongo
 cryptography
