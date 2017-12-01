@@ -11,6 +11,7 @@ RUN apt-get update && \
                             dialog \
                             net-tools \
                             build-essential \
+                            gunicorn \
                             language-pack-en
 
 RUN apt-get update && \
@@ -65,3 +66,5 @@ RUN pip install -r requirements.txt
 # RUN export LANG=en_GB.UTF-8
 
 CMD [ "python3", "main.py" ]
+
+# CMD [ "gunicorn", "-b","0.0.0.0", ":$PORT", "main:bot" ]
