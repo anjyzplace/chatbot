@@ -56,3 +56,10 @@ Connections                   ttl     opn     rt1     rt5     p50     p90
                               0       0       0.00    0.00    0.00    0.00
 ```
 e.g.  http://0736d439.ngrok.io/api/messages                             
+
+
+### To connect the emulator with an online bot, run using the IP or doamin name
+
+```
+ngrok http 192.168.1.1:5000
+```
