@@ -3,7 +3,7 @@ from engine import sendResponse
 from engine import sentenceClass
 from recommender import foodRecomendation, exerciseRecommendation
 from recommender import isItInFile
-# import chathistory
+import chathistory
 
 
 # from pymongo import MongoClient
