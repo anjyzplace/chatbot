@@ -14,7 +14,7 @@ with open('healthdata.csv', 'rt') as csvfile:
     x = csv.DictReader(csvfile,delimiter=',',quotechar='|')
 
     for row in x:
-        training_data.append({"class": row['CLASS'], "sentence":row['SENTENCE'], "response":row['RESPONSE']})
+        training_data.append({"class": row['CLASS'], "sentence":row['SENTENCE']})
 print ("%s sentences of training data" % len(training_data))
 
 # capture unique stemmed words in the training corpus
@@ -31,7 +31,7 @@ for data in training_data:
     # tokenize each sentence into words
     for word in nltk.word_tokenize(data['sentence']):
         # ignore a some things
-        if word not in ["?", "'s"]:
+        if word not in ["?", "'s", "."]:
             # stem and lowercase each word
             stemmed_word = stemmer.stem(word.lower())
             # have we not seen this word already?
@@ -44,9 +44,9 @@ for data in training_data:
             class_words[data['class']].extend([stemmed_word])
 
 # we now have each stemmed word and the number of occurances of the word in our training corpus (the word's commonality)
-# print ("Corpus words and counts: %s \n" % corpus_words)
+print ("Corpus words and counts: %s \n" % corpus_words)
 # also we have all words in each class
-# print ("Class words: %s" % class_words)
+print ("Class words: %s" % class_words)
 
 # calculate a score for a given class
 def calculate_class_score(sentence, class_name, show_details=True):
@@ -132,11 +132,11 @@ def sendResponse(sentence):
     return selectResponse(high_class, sentence)
 
 def selectResponse(dclass, sentence):
-    GREETING_RESPONSES = ["'Hello", "Hey", "*nods*", "Hi", "Good day to you", "Hi there"]
+    GREETING_RESPONSES = ["'Hello", "Hey", "Hey there", "Hi", "Good day to you", "Hi there"]
     GOODBYE_RESPONSES =  ["See you later", "Bye",  "Talk to you later", "Bye for now", "Take care"]
     IDENTITY_RESPONSES = ["I am LifeBot. How can I help you", " I am LifeBot, I can give healthy recommendations."]
     FOOD_RESPONSES = ["beans", "soup", "rice"]
-    responses = list(set([a['response'] for a in training_data]))
+    # responses = list(set([a['response'] for a in training_data]))
     # print(dclass)
     if(dclass=='greeting'):
      return rd.choice(GREETING_RESPONSES)

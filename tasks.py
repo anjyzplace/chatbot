@@ -35,12 +35,15 @@ def botresponse(message):
 
     # print(selectRecomendation())
     elif message["type"] == "message":
-        if sententenceclass == "food":
+        if sententenceclass == "breakfast":
             # print(botreply)
             print(jsonFoodData)
             jsonToPython = json.loads(jsonFoodData)
             ReplyToActivity(fill=message,
-                        text="Which of the following would you consider ?", inputHint="acceptingInput", suggestedActions=jsonToPython).send()
+                        text="Which of the following would you consider ?",\
+                        inputHint="acceptingInput", \
+                        suggestedActions=jsonToPython).send()
+
         elif sententenceclass == "exercise":
             # print(botreply)
             print(jsonExerciseData)
