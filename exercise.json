@@ -1,0 +1,15 @@
+{
+    "exercise": [{
+        "type": "aerobics",
+        "name": "Swimming"
+    },
+    {
+        "type": "aerobics",
+        "name": "Cycling"
+    },
+    {
+        "type": "aerobics",
+        "name": "Running"
+    }
+]
+}
