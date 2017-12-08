@@ -15,8 +15,13 @@ services:
   database:
     image: mongo
     container_name: mongodatabase
+    volumes:
+      - mongo-data:/data/db
+      - ./docker/scripts:/scripts
+      - ./docker/data:/data
     ports:  
-      - "27017:27017"    
+      - "27017:27017"
+    command: /bin/bash /scripts/populate.sh    
     healthcheck:
       test: ["CMD", "echo", ">", "/dev/tcp/localhost/27017", "||", "exit", "1"]
       interval: 40s

@@ -20,7 +20,7 @@ foodTitle2 =second[1]
 foodValue2 =second[2]
 
 def processJson(a,b,c,d):
-    newjson = '{{\"actions\":[{{\"type\":\"imBack\",\"title\":\"{0}\",\"value\":\"{1}\"}},{{\"type\":\"imBack\",\"title\":\"{2}\",\"value\":\"{3}\"}},{{\"type\":\"None\",\"title\":\"none\",\"value\":\"none above\"}}]}}'.format( a, b, c, d)
+    newjson = '{{\"actions\":[{{\"type\":\"imBack\",\"title\":\"{0}\",\"value\":\"{1}\"}},{{\"type\":\"imBack\",\"title\":\"{2}\",\"value\":\"{3}\"}},{{\"type\":\"imBack\",\"title\":\"None of the Above\",\"value\":\"None\"}}]}}'.format( a, b, c, d)
     return newjson
 
 
@@ -45,6 +45,17 @@ def exerciseRecommendation():
         foodTitle2 =second[1]
         foodValue2 =second[2]   
     return processJson(foodTitle1, foodValue1,  foodTitle2, foodValue2)
+
+
+
+
+
+
+
+
+
+
+
 
 def isItInFile(searchValue):
     result = False

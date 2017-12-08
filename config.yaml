@@ -2,4 +2,4 @@ other:
     state: MongodbState   # state to use
     database: statedatabase     # defaults to microsoft bot framework
 mongodb:
-    uri: mongodb://database:27017
+    uri: mongodb://localhost:27017

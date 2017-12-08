@@ -1,0 +1,55 @@
+CLASS,SENTENCE
+greeting,How are you ?
+greeting,How  is your day ?
+greeting,Good day
+greeting,How is it going today ?
+greeting,Hello
+greeting,Hi
+goodbye,Have a nice day
+goodbye,See you later
+goodbye,See you tomorrow
+goodbye,Talk to you soon
+goodbye,Talk to you later
+goodbye,Goodbye
+goodbye,Bye
+goodbye,Take care
+identity, Who are you ?
+identity, Who is this ?
+food,What can I eat ?
+food,What food can I eat ?
+breakfast,What can I have for breakfast ?
+breakfast,What can I have this morning ?
+lunch,What can I have for lunch ?
+lunch,What can I eat this afternoon ?
+dinner,What can I have for dinner ?
+dinner,What can I eat this evening ?
+dinner,What can I have for supper ?
+dinner,What can I have for tea ?
+food, what food can i eat ?
+food, what can i eat ?
+drink,What can I drink ?
+drink,What drink can I have ?
+exercise,situps
+exercise,walking
+exercise,jogging
+exercise,running
+exercise,tennis
+exercise,basketball
+exercise,netball
+exercise,swimming
+exercise,biking
+exercise,plank
+exercise,squat
+exercise,boxing
+exercise,rowing
+exercise,Aquarobics
+exercise,dancing
+exercise,What exercise can I do
+negative,Can I have sweets ?
+negative,Can I have sweets ?
+negative,Can I have cakes ?
+negative,Can I have cakes ?
+negative,Can I drink alcohol 
+medication,I have forgotten my tablets
+medication,I have forgotten my tablets
+medication,Why should I take my tablets
