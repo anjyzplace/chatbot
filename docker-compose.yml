@@ -14,16 +14,48 @@ services:
 
   database:
     image: mongo
+      # context: ./mongo
+      # dockerfile: Dockerfile
+    command: mongod --smallfiles
     container_name: mongodatabase
-    volumes:
-      - mongo-data:/data/db
-      - ./docker/scripts:/scripts
-      - ./docker/data:/data
     ports:  
-      - "27017:27017"
-    command: /bin/bash /scripts/populate.sh    
+      - "27017:27017"  
     healthcheck:
       test: ["CMD", "echo", ">", "/dev/tcp/localhost/27017", "||", "exit", "1"]
       interval: 40s
       timeout: 30s
       retries: 5
+  
+  seeder:
+    build:
+      context: ./thedata
+      dockerfile: Dockerfile
+    container_name: mongodata
+    links:
+      - database
+    depends_on:
+      database:
+        condition: service_healthy  
+    healthcheck:
+      test: ["CMD", "echo", ">", "/dev/tcp/localhost/27017", "||", "exit", "0"]
+      interval: 40s
+      timeout: 30s
+      retries: 5 
+           
+  # seedertwo:
+  #   build:
+  #     context: ./thedata
+  #     dockerfile: Dockerfile.exercise
+  #   container_name: exercise
+  #   links:
+  #     - database
+  #   depends_on:
+  #     database:
+  #       condition: service_healthy  
+  #   healthcheck:
+  #     test: ["CMD", "echo", ">", "/dev/tcp/localhost/27017", "||", "exit", "0"]
+  #     interval: 40s
+  #     timeout: 30s
+  #     retries: 5  
+# volumes:  
+#   mongo-data:
