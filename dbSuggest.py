@@ -9,36 +9,33 @@ client = MongoClient(localconfig.MONGO_URI())
 
 db = client.microsoftbotframework
 collection = db.exercise
-exercises = collection.find_one()
-con = exercises['exercise']
-exerciseList=[]
+exercises = collection.find()
+# con = exercises['exercise']
+exerciseValueList=[]
 state=False
-choicey="car"
 
 def exerciseSuggest():
     # exerciseList=[]
-    print(len(con))
-    for x in con:
-        print(x)
-        exerciseList.append(x)
-    mychoice = random.choices(exerciseList, k=2)
-    state=True
-    choicey=mychoice
-       
-    # print(mychoice)
-    first = mychoice[0]
-    second = mychoice[1]
-    foodtype1 =first['type']
-    foodTitle1 =first['name']
-    foodtype2 =second['type']
-    foodTitle2 =second['name']
-    # print(foodtype1, foodTitle1,  foodtype2, foodTitle2)
-    # exerciseList.remove(mychoice)  
+    # print(len(con))
+    for row in exercises:
+        # print(row['CATEGORY'], row['TITLE'], row['VALUE'] )
+        exerciseValueList.append({"title": row['TITLE'], "value":row['VALUE']})
+        mychoice = random.choices(exerciseValueList, k=2)
+        state=True
+        choicey=mychoice
+            
+        print(mychoice)
+        first = mychoice[0]
+        second = mychoice[1]
+        foodtype1 =first['title']
+        foodTitle1 =first['value']
+        foodtype2 =second['title']
+        foodTitle2 =second['value']
+        # print(foodtype1, foodTitle1,  foodtype2, foodTitle2)     
     return processJson(foodtype1, foodTitle1,  foodtype2, foodTitle2)
 
 def removeSelection():
-    print(choicey)
+    # print(choicey)
     # exerciseList.remove(choice)
-    print(len(exerciseList))
+    print(len(exerciseValueList))
 # exerciseSuggest()
-
