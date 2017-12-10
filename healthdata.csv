@@ -1,8 +1,8 @@
-CLASS,SENTENCE,RESPONSE
-greeting,How are you ?,Fine thanks.
-greeting,How  is your day ?,Good Thanks
-greeting,Good day,Hi
-greeting,How is it going today ?,Fine thanks.
+CLASS,SENTENCE
+greeting,How are you ?
+greeting,How  is your day ?
+greeting,Good day
+greeting,How is it going today ?
 greeting,Hello,Hi
 greeting,Hi,Hello
 goodbye,Have a nice day,Bye

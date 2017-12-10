@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Food,Soup,Soup
 Food,Muesli,Muesli
 Food,Beans,Beans
@@ -31,3 +32,38 @@ Exercise,Boxing,Boxing
 Exercise,Rowing,Rowing
 Exercise,Aquarobics,Aquarobics
 Exercise,Dancing,Dancing
+=======
+food,soup,soup
+food,muesli,muesli
+food,beans,beans
+food,rice,rice
+food,scambled egg,scambled egg
+food,tuna,tuna
+food,salmon,salmon
+food,oats,oats
+food,cereal,cereal
+food,nuts,nuts
+food,potatotes,potatotes
+food,spaghetti,spaghetti
+food,yoghurt,yoghurt
+food,salad,salad
+food,vegetables,vegetables
+exercise,running,running
+exercise,walking,walking
+exercise,cycling,cycling
+exercise,pushups,pushups
+exercise,situps,situps
+exercise,basketball,basketball
+exercise,tennis,tennis
+exercise,Biking,Biking
+exercise,jogging,jogging
+exercise,netball,netball
+exercise,swimming,swimming
+exercise,biking,biking
+exercise,plank,plank
+exercise,squat,squat
+exercise,boxing,boxing
+exercise,rowing,rowing
+exercise,aquarobics,aquarobics
+exercise,dancing,dancing
+>>>>>>> master

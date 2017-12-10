@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from microsoftbotframework import MongodbState, Config
 
 class DataStore:
@@ -19,3 +20,14 @@ class DataStore:
     # def set_name(self):
     #     mongodb_state = MongodbState(config=Config())
     #     mongodb_state.set_user_data(values, user_id=None, bot=False, fill=None)
+=======
+from microsoftbotframework import MongodbState, Config
+
+class DataStore:
+    """A simple example class"""
+
+    def get_history(self):
+        mongodb_state = MongodbState(config=Config())
+        info = mongodb_state.get_activities(count=10)
+        return info
+>>>>>>> master

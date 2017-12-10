@@ -1,5 +1,15 @@
+<<<<<<< HEAD
 other:
     state: MongodbState   # state to use
     database: statedatabase     # defaults to microsoft bot framework
 mongodb:
     uri: mongodb://database:27017
+=======
+other:
+    state: MongodbState   # state to use
+    database: statedatabase     # defaults to microsoft bot framework
+    app_client_id: f8dce41a-00a7-4cbf-87b6-959e2b41a8a2
+    app_client_secret: rrkqfbGI311^uQOPZK67^[;
+mongodb:
+    uri: mongodb://localhost:27017/microsoftbotframework
+>>>>>>> master

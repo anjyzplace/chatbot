@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 food,Soup,Soup
 breakfast,Muesli,Muesli
 food,Beans,Beans
@@ -15,3 +16,20 @@ dinner,Salad,Salad
 dinner,Vegetables,Vegetables
 food,Salad,Salad
 food,Vegetables,Vegetables
+=======
+food,soup,soup
+food,muesli,muesli
+food,beans,beans
+food,rice,rice
+food,scambled egg,scambled egg
+food,tuna,tuna
+food,salmon,salmon
+food,oats,oats
+food,cereal,cereal
+food,nuts,nuts
+food,potatotes,potatotes
+food,spaghetti,spaghetti
+food,yoghurt,yoghurt
+food,salad,salad
+food,vegetables,vegetables
+>>>>>>> master

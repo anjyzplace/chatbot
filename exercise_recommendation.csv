@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 CATEGORY,TITLE,VALUE
 exercise,running,running
 exercise,walking,walking
@@ -18,3 +19,24 @@ exercise,rowing,rowing
 exercise,aquarobics,aquarobics
 exercise,dancing,dancing
 
+=======
+exercise,running,running
+exercise,walking,walking
+exercise,cycling,cycling
+exercise,pushups,pushups
+exercise,situps,situps
+exercise,basketball,basketball
+exercise,tennis,tennis
+exercise,Biking,Biking
+exercise,jogging,jogging
+exercise,netball,netball
+exercise,swimming,swimming
+exercise,biking,biking
+exercise,plank,plank
+exercise,squat,squat
+exercise,boxing,boxing
+exercise,rowing,rowing
+exercise,aquarobics,aquarobics
+exercise,dancing,dancing
+
+>>>>>>> master
