@@ -5,6 +5,7 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile
+    command: pytest
     container_name: chatbot
     ports:  
       - "5000:5000"

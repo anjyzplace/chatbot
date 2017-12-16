@@ -135,10 +135,9 @@ def sendResponse(sentence):
     return selectResponse(high_class, sentence)
 
 def selectResponse(dclass, sentence):
-    GREETING_RESPONSES = ["'Hello", "Hey", "*nods*", "Hi", "Good day to you", "Hi there"]
+    GREETING_RESPONSES = ["'Hello", "Hey", "Hi", "Good day to you", "Hi there"]
     GOODBYE_RESPONSES =  ["See you later", "Bye",  "Talk to you later", "Bye for now", "Take care"]
     IDENTITY_RESPONSES = ["I am LifeBot. How can I help you ?", " I am LifeBot, I can give healthy recommendations."]
-    FOOD_RESPONSES = ["beans", "soup", "rice"]
     # responses = list(set([a['response'] for a in training_data]))
     # print(dclass)
     if(dclass=='greeting'):
@@ -147,8 +146,6 @@ def selectResponse(dclass, sentence):
      return rd.choice(GOODBYE_RESPONSES)
     elif(dclass=='identity'):
      return rd.choice(IDENTITY_RESPONSES) 
-    elif(dclass=='food'):
-     return ' You can try some ' + rd.choice(FOOD_RESPONSES)    
     else:
      print('--------------------------')
     #  print(sentence)

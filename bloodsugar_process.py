@@ -1,21 +1,26 @@
 import json
 from statistics import mean
+# import logging
+# logging.basicConfig(filename='chatbot.log',level=logging.DEBUG)
 
-data = json.load(open('blood_sugar_five.json'))
-con = data["bloodsugar"]["results"]
 
-def averageBloodSugarin5DaysBeforeMeal():
+path = 'blood_sugar_five.json'
+def averageBloodSugarin5DaysBeforeMeal(path):
+    data = json.load(open(path))
+    con = data["bloodsugar"]["results"]
     FiveDayList=[]
     for x in con:
         for y in x:
             my_dict = y
             FiveDayList.append(my_dict['before_meal'])
     memean = mean(FiveDayList)
-    print(memean)
+    # logging.info('Mean blood sugar is ')
     return memean
 
 
-def averageBloodSugarin5DaysAfterMeal():
+def averageBloodSugarin5DaysAfterMeal(path):
+    data = json.load(open(path))
+    con = data["bloodsugar"]["results"]
     FiveDayList=[]
     for x in con:
         for y in x:
@@ -24,5 +29,5 @@ def averageBloodSugarin5DaysAfterMeal():
     memean = mean(FiveDayList)
     print(memean)
     return memean
-averageBloodSugarin5DaysBeforeMeal()
-averageBloodSugarin5DaysAfterMeal()       
+averageBloodSugarin5DaysBeforeMeal(path)
+averageBloodSugarin5DaysAfterMeal(path)       

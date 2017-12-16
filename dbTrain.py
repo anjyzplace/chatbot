@@ -3,7 +3,6 @@ from bson.objectid import ObjectId
 import pprint
 import json
 import random
-from recommender import processJson
 client = MongoClient('mongodb://localhost:27017/')
 
 db = client.microsoftbotframework
