@@ -1,4 +1,4 @@
-from sentiment_regex import matcher
+from app.sentiment_regex import matcher
 
 def test_positive_matcher():
     res = matcher('I like apples.')

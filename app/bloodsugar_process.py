@@ -4,7 +4,7 @@ from statistics import mean
 # logging.basicConfig(filename='chatbot.log',level=logging.DEBUG)
 
 
-path = 'blood_sugar_five.json'
+# path = 'blood_sugar_five.json'
 def averageBloodSugarin5DaysBeforeMeal(path):
     data = json.load(open(path))
     con = data["bloodsugar"]["results"]
@@ -29,5 +29,5 @@ def averageBloodSugarin5DaysAfterMeal(path):
     memean = mean(FiveDayList)
     print(memean)
     return memean
-averageBloodSugarin5DaysBeforeMeal(path)
-averageBloodSugarin5DaysAfterMeal(path)       
+# averageBloodSugarin5DaysBeforeMeal(path)
+# averageBloodSugarin5DaysAfterMeal(path)       
