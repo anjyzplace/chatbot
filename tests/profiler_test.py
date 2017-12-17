@@ -1,4 +1,4 @@
-from profiler import profile
+from app.profiler import profile
 
     
     # Normal Range        

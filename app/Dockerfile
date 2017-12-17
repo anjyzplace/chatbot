@@ -40,10 +40,12 @@ RUN mkdir -p /usr/src/app
 
 WORKDIR /usr/src/app
 
-COPY ./app /usr/src/app/
+COPY . /usr/src/app/
+
+RUN echo $LANG
 
 RUN pip install -r requirements.txt
 
-CMD [ "python3", "main.py" ]
+CMD [ "python3", "app/main.py" ]
 
 
