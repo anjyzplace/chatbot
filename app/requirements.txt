@@ -1,0 +1,6 @@
+microsoftbotframework
+csvmapper
+textblob
+pymongo
+cryptography
+PyJWT
