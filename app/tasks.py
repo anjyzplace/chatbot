@@ -4,7 +4,7 @@ from dbSuggest import suggest
 from sentiment_regex import matcher
 import chathistory
 from  positive_interests import storeInterest
-from bloodsugar_process import *
+from bloodsugar_process import averageBloodSugarin5DaysBeforeMeal
 import json
 # import logging
 # logging.basicConfig(filename='chatbot.log',level=logging.INFO)

@@ -3,14 +3,15 @@ import nltk
 import csv
 import random as rd
 from nltk.stem.lancaster import LancasterStemmer
-from classfier import sentimentalize
+from app.classfier import sentimentalize
+import sys
 # word stemmer
 stemmer = LancasterStemmer()
 
 # 3 classes of training data
 training_data = []
 
-with open('healthdata.csv', 'rt') as csvfile:
+with open('.healthdata.csv', 'rt') as csvfile:
     x = csv.DictReader(csvfile,delimiter=',',quotechar='|')
 
     for row in x:
@@ -63,11 +64,11 @@ def calculate_class_score(sentence, class_name, show_details=True):
     return score
 
 # we can now calculate a score for a new sentence
-sentence = "good day for us to have lunch?"
+# sentence = "good day for us to have lunch?"
 
 # now we can find the class with the highest score
-for c in class_words.keys():
-    print ("Class: %s  Score: %s \n" % (c, calculate_class_score(sentence, c)))
+# for c in class_words.keys():
+#     print ("Class: %s  Score: %s \n" % (c, calculate_class_score(sentence, c)))
 
     # calculate a score for a given class taking into account word commonality
 def calculate_class_score_commonality(sentence, class_name, show_details=True):
@@ -84,8 +85,8 @@ def calculate_class_score_commonality(sentence, class_name, show_details=True):
     return score
 
 # now we can find the class with the highest score
-for c in class_words.keys():
-    print ("Class: %s  Score: %s \n" % (c, calculate_class_score_commonality(sentence, c)))
+# for c in class_words.keys():
+#     print ("Class: %s  Score: %s \n" % (c, calculate_class_score_commonality(sentence, c)))
 
     # return the class with highest score for sentence
 def classify(sentence):
