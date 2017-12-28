@@ -1,8 +1,8 @@
 from pymongo import MongoClient
-import localconfig
+import app.localconfig
 import json
 
-client = MongoClient(localconfig.MONGO_URI())
+client = MongoClient(app.localconfig.MONGO_URI())
 
 # Refactor for blank user, blank interest
 def storeInterest(user, collection, interest):

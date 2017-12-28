@@ -1,11 +1,13 @@
 from microsoftbotframework import ReplyToActivity, MongodbState, Config
-from newengine import sendResponse, sentenceClass
-from dbSuggest import suggest
+from newengine import sendResponse, sentenceClass, calculate_class_score, wordCounter
+from dbSuggest import suggest, foodTypesSuggest
 from sentiment_regex import matcher
 import chathistory
+from profiler import profile
 from  positive_interests import storeInterest
-from bloodsugar_process import averageBloodSugarin5DaysBeforeMeal
+from bloodsugar_process import averageBloodSugarin5DaysBeforeMeal, averageBloodSugarin5DaysAfterMeal, lastAfterMealBloodResult, lastPremealBloodResult
 import json
+from textblob import TextBlob
 # import logging
 # logging.basicConfig(filename='chatbot.log',level=logging.INFO)
 
@@ -51,24 +53,74 @@ def botresponse(message):
         input = message["text"]
         print('The input is {0}'.format(input))
         if sententenceclass == "food":
+            if(wordCounter(message["text"])>=3):
                 jsonToPython = json.loads(suggest('food'))
                 ReplyToActivity(fill=message,
                             text="Which of the following would you consider ?", inputHint="acceptingInput", suggestedActions=jsonToPython).send()
+            else:
+                guide(sententenceclass, message)
+        elif sententenceclass == "breakfast":
+            if(wordCounter(message["text"])>=3):
+                jsonToPython = json.loads(foodTypesSuggest('breakfast'))
+                ReplyToActivity(fill=message,
+                            text="Which of the following would you consider ?", inputHint="acceptingInput", suggestedActions=jsonToPython).send()  
+            else:
+                guide(sententenceclass, message) 
+        elif sententenceclass == "lunch":
+            if(wordCounter(message["text"])>=3):
+                jsonToPython = json.loads(foodTypesSuggest('lunch'))
+                ReplyToActivity(fill=message,
+                            text="Which of the following would you consider ?", inputHint="acceptingInput", suggestedActions=jsonToPython).send()  
+            else:
+                guide(sententenceclass, message) 
+        elif sententenceclass == "dinner":
+            if(wordCounter(message["text"])>=3):
+                jsonToPython = json.loads(foodTypesSuggest('dinner'))
+                ReplyToActivity(fill=message,
+                            text="Which of the following would you consider ?", inputHint="acceptingInput", suggestedActions=jsonToPython).send()  
+            else:
+                guide(sententenceclass, message)                                 
         elif sententenceclass == "drink":
+            if(wordCounter(message["text"])>=3):
                 jsonToPython = json.loads(suggest('drinks'))
                 ReplyToActivity(fill=message,
-                            text="Which of the following would you consider ?", inputHint="acceptingInput", suggestedActions=jsonToPython).send()                            
+                            text="Which of the following would you consider ?", inputHint="acceptingInput", suggestedActions=jsonToPython).send()  
+            else:
+                guide(sententenceclass, message)                                                     
         elif sententenceclass == "exercise":
+            if(wordCounter(message["text"])>=3):           
                 jsonToPython = json.loads(suggest('exercise'))
                 ReplyToActivity(fill=message,
                             text="Which of the following would you consider ?", inputHint="acceptingInput", suggestedActions=jsonToPython).send()
+            else:
+                guide(sententenceclass, message)                            
         elif sententenceclass == "blood-sugar":
-                ReplyToActivity(fill=message,
-                    text='I have some information about your blood sugar.').send()
-                before = averageBloodSugarin5DaysBeforeMeal("blood_sugar_five.json")
-                template = "Your average pre meal blood sugar in the last 5 days is {0} mmol/L".format(before)
-                ReplyToActivity(fill=message,
-                    text=template).send()                                           
+            input = TextBlob(message["text"])
+            sentence = message["text"]            
+            if(wordCounter(input)>=3):
+                if("status" in sentence or "profile" in sentence):
+                # if(input.ends_with("status")):
+                    result_pre = lastPremealBloodResult("./app/blood_sugar_five.json")  
+                    result_after = lastAfterMealBloodResult("./app/blood_sugar_five.json")   
+                    status = profile(result_pre, result_after)
+                    templateStatus = "Your last blood result is {0} mg/dL, which mean your status is {1} ".format(result_pre, status)                              
+                    ReplyToActivity(fill=message,
+                        text=templateStatus).send()
+                elif("lastest" in sentence or "result" in sentence or "five" in sentence):                        
+                    before = averageBloodSugarin5DaysBeforeMeal("./app/blood_sugar_five.json")
+                    after = averageBloodSugarin5DaysAfterMeal("./app/blood_sugar_five.json")
+                    templateBefore = "Your average pre meal blood sugar in the last 5 days is {0} mg/dL".format(before)
+                    ReplyToActivity(fill=message,
+                        text=templateBefore).send()                                           
+                    templateAfter = "Your average post meal blood sugar in the last 5 days is {0} mg/dL".format(after)
+                    ReplyToActivity(fill=message,
+                        text=templateAfter).send()
+                else:
+                    before = averageBloodSugarin5DaysBeforeMeal("./app/blood_sugar_five.json")
+                    after = averageBloodSugarin5DaysAfterMeal("./app/blood_sugar_five.json")                                          
+                    template = "Your average blood sugar in the last 5 days is #Fasting {0} mg/dL, random: {1} mg/dL ".format(before, after)
+                    ReplyToActivity(fill=message,
+                        text=template).send()                                 
         else:
                 jsonToPython = None
                 ReplyToActivity(fill=message,
@@ -84,58 +136,7 @@ def responder(sentenceclass, message):
             ReplyToActivity(fill=message,
                         text="Which of the following would you consider ?", inputHint="acceptingInput", suggestedActions=jsonToPython).send()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    # if message["text"] == None:
-    #         print("Hi")    
-    #     # print(valu.get_lastchat())
-    # botreply = sendResponse(message["text"])
-    # # print("One")
-    # sententenceclass = sentenceClass(message["text"])
-    # # print("Two")
-    # input = message["text"]
-    # print('The input is {0}'.format(input))
-    # if isItInFile(message["text"])== True:
-    #     ReplyToActivity(fill=message,
-    #         text='Thanks, I will make a note of that.').send()
-
-    # # print(selectRecomendation())
-    # elif message["type"] == "message":
-    #     if sententenceclass == "food":
-    #         # print(botreply)
-    #         # print(jsonFoodData)
-    #         jsonToPython = json.loads(jsonFoodData)
-    #         ReplyToActivity(fill=message,
-    #                     text="Which of the following would you consider ?", inputHint="acceptingInput", suggestedActions=jsonToPython).send()
-    #     elif sententenceclass == "exercise":
-    #         # print(botreply)
-    #         print(jsonExerciseData)
-    #         jsonToPython = json.loads(jsonExerciseData)
-    #         ReplyToActivity(fill=message,
-    #                     text="Which of the following would you consider ?", inputHint="acceptingInput", suggestedActions=jsonToPython).send()
-    #     else:
-    #         jsonToPython = None
-    #         ReplyToActivity(fill=message,
-    #                     text=botreply, inputHint="acceptingInput", suggestedActions=jsonToPython).send()
+def guide(sentenceClass, message):
+    guideMessage = "I am LifeBot. I can give healthy "+ sentenceClass +" recommendations."
+    ReplyToActivity(fill=message,
+            text=guideMessage).send()

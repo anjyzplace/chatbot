@@ -1,10 +1,10 @@
-# import sys
-# from app.classfier import sentimentalize
+import sys
+from app.classfier import sentimentalize
 
-# def test_positive_semantics():
-#     res = sentimentalize('I like apples.')
-#     assert res== 'pos'    
+def test_positive_semantics():
+    res = sentimentalize('I like apples.')
+    assert res== 'pos'    
 
-# def test_negative_semantics():
-#     res = sentimentalize('I don\'t like their house.')
-#     assert res== 'neg'        
+def test_negative_semantics():
+    res = sentimentalize('I don\'t like their house.')
+    assert res== 'neg'        

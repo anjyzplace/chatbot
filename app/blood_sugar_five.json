@@ -1,40 +1,40 @@
 {
     "bloodsugar": {
-      "unit": "mmol/L",
+      "unit": "mg/dL",
       "results": [
         [
           {
             "date": "31-11-2017",
-            "before_meal": 7,
-            "after_meal": 11.8
+            "before_meal": 70,
+            "after_meal": 118
           }
         ],
         [
           {
             "date": "30-11-2017",
-            "before_meal": 9,
-            "after_meal": 12
+            "before_meal": 90,
+            "after_meal": 120
           }
         ],
         [
           {
             "date": "29-11-2017",
-            "before_meal": 10,
-            "after_meal": 13
+            "before_meal": 100,
+            "after_meal": 130
           }
         ],
         [
           {
             "date": "28-11-2017",
-            "before_meal": 11,
-            "after_meal": 14
+            "before_meal": 110,
+            "after_meal": 144
           }
         ],
         [
           {
             "date": "27-11-2017",
-            "before_meal": 11,
-            "after_meal": 15
+            "before_meal": 180,
+            "after_meal": 190
           }
         ]
       ]

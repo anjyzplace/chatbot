@@ -3,7 +3,7 @@ import nltk
 import csv
 import random as rd
 from nltk.stem.lancaster import LancasterStemmer
-from app.classfier import sentimentalize
+# from classfier import sentimentalize
 import sys
 # word stemmer
 stemmer = LancasterStemmer()
@@ -11,7 +11,7 @@ stemmer = LancasterStemmer()
 # 3 classes of training data
 training_data = []
 
-with open('.healthdata.csv', 'rt') as csvfile:
+with open('./app/healthdata.csv', 'rt') as csvfile:
     x = csv.DictReader(csvfile,delimiter=',',quotechar='|')
 
     for row in x:
@@ -88,7 +88,7 @@ def calculate_class_score_commonality(sentence, class_name, show_details=True):
 # for c in class_words.keys():
 #     print ("Class: %s  Score: %s \n" % (c, calculate_class_score_commonality(sentence, c)))
 
-    # return the class with highest score for sentence
+    # return the class and its highest score for sentence
 def classify(sentence):
     high_class = None
     high_score = 0
@@ -103,7 +103,7 @@ def classify(sentence):
 
     return high_class, high_score
 
-    # return the class  for sentence
+    # return the class with the highest score  for sentence
 def sentenceClass(sentence):
     high_class = None
     high_score = 0

@@ -3,9 +3,10 @@ import nltk
 import csv
 import random as rd
 from nltk.stem.lancaster import LancasterStemmer
-from classfier import sentimentalize
+# from classfier import sentimentalize
 from pymongo import MongoClient
-import localconfig
+import app.localconfig as localconfig
+from textblob import TextBlob
 
 stemmer = LancasterStemmer()
 client = MongoClient(localconfig.MONGO_URI())
@@ -13,13 +14,12 @@ db = client.microsoftbotframework
 collection = db.healthdata
 data = collection.find()
 
-# 3 classes of training data
 training_data = []
 
 
 for row in data:
         training_data.append({"class": row['CLASS'], "sentence":row['SENTENCE']})
-print ("%s sentences of training data" % len(training_data))
+
 
 # capture unique stemmed words in the training corpus
 corpus_words = {}
@@ -66,55 +66,33 @@ def calculate_class_score(sentence, class_name, show_details=True):
                 print ("   match: %s" % stemmer.stem(word.lower() ))
     return score
 
-# we can now calculate a score for a new sentence
-sentence = "good day for us to have lunch?"
 
-# now we can find the class with the highest score
-for c in class_words.keys():
-    print ("Class: %s  Score: %s \n" % (c, calculate_class_score(sentence, c)))
-
-    # calculate a score for a given class taking into account word commonality
 def calculate_class_score_commonality(sentence, class_name, show_details=True):
     score = 0
-    # tokenize each word in our new sentence
     for word in nltk.word_tokenize(sentence):
-        # check to see if the stem of the word is in any of our classes
         if stemmer.stem(word.lower()) in class_words[class_name]:
-            # treat each word with relative weight
             score += (1 / corpus_words[stemmer.stem(word.lower())])
-
             if show_details:
-                print ("   match: %s (%s)" % (stemmer.stem(word.lower()), 1 / corpus_words[stemmer.stem(word.lower())]))
+                print ("   Match: %s (%s)" % (stemmer.stem(word.lower()), 1 / corpus_words[stemmer.stem(word.lower())]))
     return score
 
-# now we can find the class with the highest score
-for c in class_words.keys():
-    print ("Class: %s  Score: %s \n" % (c, calculate_class_score_commonality(sentence, c)))
 
-    # return the class with highest score for sentence
 def classify(sentence):
     high_class = None
     high_score = 0
-    # loop through our classes
     for c in class_words.keys():
-        # calculate score of sentence for each class
         score = calculate_class_score_commonality(sentence, c, show_details=False)
-        # keep track of highest score
         if score > high_score:
             high_class = c
             high_score = score
-
     return high_class, high_score
 
-    # return the class  for sentence
+
 def sentenceClass(sentence):
     high_class = None
     high_score = 0
-    # loop through our classes
     for c in class_words.keys():
-        # calculate score of sentence for each class
         score = calculate_class_score_commonality(sentence, c, show_details=False)
-        # keep track of highest score
         if score > high_score:
             high_class = c
             high_score = score
@@ -124,11 +102,8 @@ def sentenceClass(sentence):
 def sendResponse(sentence):
     high_class = None
     high_score = 0
-    # loop through our classes
     for c in class_words.keys():
-        # calculate score of sentence for each class
         score = calculate_class_score_commonality(sentence, c, show_details=False)
-        # keep track of highest score
         if score > high_score:
             high_class = c
             high_score = score
@@ -138,18 +113,20 @@ def selectResponse(dclass, sentence):
     GREETING_RESPONSES = ["'Hello", "Hey", "Hi", "Good day to you", "Hi there"]
     GOODBYE_RESPONSES =  ["See you later", "Bye",  "Talk to you later", "Bye for now", "Take care"]
     IDENTITY_RESPONSES = ["I am LifeBot. How can I help you ?", " I am LifeBot, I can give healthy recommendations."]
-    # responses = list(set([a['response'] for a in training_data]))
-    # print(dclass)
     if(dclass=='greeting'):
-     return rd.choice(GREETING_RESPONSES)
+        input = TextBlob(sentence)
+        if(input.startswith("how are you", start=0)):
+            return "I am fine Thanks."
+        else:
+            return rd.choice(GREETING_RESPONSES)
     elif(dclass=='goodbye'):
      return rd.choice(GOODBYE_RESPONSES)
     elif(dclass=='identity'):
      return rd.choice(IDENTITY_RESPONSES) 
     else:
-     print('--------------------------')
-    #  print(sentence)
-    #  return (sentimentalize(sentence))
      return ('Sorry, I dont understand that')
-# print("End of training..............")
-# print(classify("make me some lunch?"))
+
+
+def wordCounter(a):
+    return len(a.split())
+    

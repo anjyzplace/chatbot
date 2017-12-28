@@ -29,5 +29,23 @@ def averageBloodSugarin5DaysAfterMeal(path):
     memean = mean(FiveDayList)
     print(memean)
     return memean
-# averageBloodSugarin5DaysBeforeMeal(path)
-# averageBloodSugarin5DaysAfterMeal(path)       
+
+def lastAfterMealBloodResult(path):
+    data = json.load(open(path))
+    con = data["bloodsugar"]["results"]
+    FiveDayList=[]
+    for x in con:
+        for y in x:
+            my_dict = y
+            FiveDayList.append(my_dict['after_meal'])
+    return FiveDayList[-1]
+
+def lastPremealBloodResult(path):
+    data = json.load(open(path))
+    con = data["bloodsugar"]["results"]
+    FiveDayList=[]
+    for x in con:
+        for y in x:
+            my_dict = y
+            FiveDayList.append(my_dict['before_meal'])
+    return FiveDayList[-1] 
