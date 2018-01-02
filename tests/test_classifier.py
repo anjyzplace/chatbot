@@ -1,5 +1,5 @@
-from classfier import sentimentalize
-
+import sys
+from app.classfier import sentimentalize
 
 def test_positive_semantics():
     res = sentimentalize('I like apples.')

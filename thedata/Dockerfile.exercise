@@ -1,0 +1,8 @@
+FROM mongo
+
+COPY . .
+
+RUN ls
+
+CMD mongoimport --host database --db microsoftbotframework --collection exercise --type csv --headerline --file ./data/exercise_recommendation.csv
+
