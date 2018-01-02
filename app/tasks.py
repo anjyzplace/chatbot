@@ -1,13 +1,14 @@
 from microsoftbotframework import ReplyToActivity, MongodbState, Config
-from newengine import sendResponse, sentenceClass, calculate_class_score, wordCounter
-from dbSuggest import suggest, foodTypesSuggest
+from engine import sendResponse, sentenceClass, calculate_class_score, wordCounter
+from dbSuggest import suggest, foodTypesSuggest, suggestPersonal
 from sentiment_regex import matcher
 import chathistory
 from profiler import profile
-from  positive_interests import storeInterest
+from  positive_interests import storeInterest, storeInterestwithClass
 from bloodsugar_process import averageBloodSugarin5DaysBeforeMeal, averageBloodSugarin5DaysAfterMeal, lastAfterMealBloodResult, lastPremealBloodResult
 import json
 from textblob import TextBlob
+from trimmer import Trimmer
 # import logging
 # logging.basicConfig(filename='chatbot.log',level=logging.INFO)
 
@@ -26,7 +27,8 @@ def botresponse(message):
     elif(matcher(message["text"]) == True):
         user_id = message["from"]["id"]
         interest = message["text"]
-        storeInterest(user_id, "interest", interest)
+        sententenceclass = sentenceClass(interest)
+        storeInterestwithClass(user_id, "personal", sententenceclass, Trimmer(interest))
         ReplyToActivity(fill=message,
             text='Great, I have made a note of that.').send()
     elif message["text"] == "None":
@@ -38,7 +40,6 @@ def botresponse(message):
         print(lastchats)
         sentence = lastchats[0]["activity"]["text"]
         if(sentence == "None"):
-            print("**********************")
             offset = offset + 2
             lastchats = info.get_lastnumberofchats(offset)
             print('Fetching {0} messages'.format(offset))
@@ -52,18 +53,28 @@ def botresponse(message):
         sententenceclass = sentenceClass(message["text"])
         input = message["text"]
         print('The input is {0}'.format(input))
+        user_id = message["from"]["id"]
         if sententenceclass == "food":
             if(wordCounter(message["text"])>=3):
-                jsonToPython = json.loads(suggest('food'))
-                ReplyToActivity(fill=message,
+                if(suggestPersonal("personal",sententenceclass, user_id) != None):
+                    jsonToPython = json.loads(suggestPersonal("personal",sententenceclass, user_id))
+                    ReplyToActivity(fill=message,
                             text="Which of the following would you consider ?", inputHint="acceptingInput", suggestedActions=jsonToPython).send()
+                else:
+                    jsonToPython = json.loads(suggest('food'))
+                    ReplyToActivity(fill=message,
+                            text="Which of the following would you consider ?", inputHint="acceptingInput", suggestedActions=jsonToPython).send()        
             else:
                 guide(sententenceclass, message)
         elif sententenceclass == "breakfast":
             if(wordCounter(message["text"])>=3):
-                jsonToPython = json.loads(foodTypesSuggest('breakfast'))
+                if(suggestPersonal("personal",sententenceclass, user_id)):
+                    jsonToPython = json.loads(suggestPersonal("personal",sententenceclass, user_id))
+                else:
+                    jsonToPython = json.loads(foodTypesSuggest('breakfast'))
                 ReplyToActivity(fill=message,
-                            text="Which of the following would you consider ?", inputHint="acceptingInput", suggestedActions=jsonToPython).send()  
+                            text="Which of the following would you consider ?", \
+                            inputHint="acceptingInput", suggestedActions=jsonToPython).send()  
             else:
                 guide(sententenceclass, message) 
         elif sententenceclass == "lunch":
@@ -95,11 +106,9 @@ def botresponse(message):
             else:
                 guide(sententenceclass, message)                            
         elif sententenceclass == "blood-sugar":
-            input = TextBlob(message["text"])
-            sentence = message["text"]            
-            if(wordCounter(input)>=3):
+            sentence = message["text"]
+            if(wordCounter(sentence)>=3):
                 if("status" in sentence or "profile" in sentence):
-                # if(input.ends_with("status")):
                     result_pre = lastPremealBloodResult("./app/blood_sugar_five.json")  
                     result_after = lastAfterMealBloodResult("./app/blood_sugar_five.json")   
                     status = profile(result_pre, result_after)
@@ -118,9 +127,15 @@ def botresponse(message):
                 else:
                     before = averageBloodSugarin5DaysBeforeMeal("./app/blood_sugar_five.json")
                     after = averageBloodSugarin5DaysAfterMeal("./app/blood_sugar_five.json")                                          
-                    template = "Your average blood sugar in the last 5 days is #Fasting {0} mg/dL, random: {1} mg/dL ".format(before, after)
+                    template = "Your average blood sugar in the last 5 days is Fasting {0} mg/dL, random: {1} mg/dL ".format(before, after)
                     ReplyToActivity(fill=message,
                         text=template).send()                                 
+        elif sententenceclass == "goodbye":
+                name = message["from"]["name"]
+                jsonToPython = None
+                messagetosend = botreply + ", " + name
+                ReplyToActivity(fill=message,
+                            text=messagetosend, inputHint="acceptingInput", suggestedActions=jsonToPython).send()
         else:
                 jsonToPython = None
                 ReplyToActivity(fill=message,

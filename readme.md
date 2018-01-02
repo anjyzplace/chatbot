@@ -3,10 +3,11 @@
 ### Install Microsoft Bot framework
 https://dev.botframework.com/
 
-### Install Microsoft Bot framework wrapper 
+### Install Microsoft Bot framework  
 http://microsoftbotframework.readthedocs.io/en/latest/
 
-
+### Install Microsoft Bot framework  Emulator
+https://github.com/Microsoft/BotFramework-Emulator/releases/
 ### Start app
 At the root of the application, run the command below.
 
@@ -67,3 +68,8 @@ e.g.  http://0736d439.ngrok.io/api/messages
 ```
 ngrok http 192.168.1.1:5000
 ```
+
+<category>
+<pattern> What is your name </pattern>
+<template>My name is Henry. </template>
+</category>

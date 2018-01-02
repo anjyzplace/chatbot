@@ -1,4 +1,4 @@
-from app.newengine import calculate_class_score, calculate_class_score_commonality, sentenceClass, wordCounter
+from app.engine import calculate_class_score, calculate_class_score_commonality, sentenceClass, wordCounter
 
 def test_score_positive():
     value = calculate_class_score("who is this", "identity")
